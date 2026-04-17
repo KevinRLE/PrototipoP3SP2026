@@ -41,19 +41,19 @@ public class clsFacultades {
         this.faculcCodigo = faculcodigo;
     }
 
-    public String getPernombre() {
+    public String getFaculnombre() {
         return faculnombre;
     }
 
-    public void setPernombre(String faculnombre) {
+    public void setFaculnombre(String faculnombre) {
         this.faculnombre = faculnombre;
     }
 
-    public String getPerestado() {
+    public String getFaculstatus() {
         return faculstatus;
     }
 
-    public void setPerestado(String perEstado) {
+    public void setFaculstatus(String perEstado) {
         this.faculstatus = perEstado;
     }
 

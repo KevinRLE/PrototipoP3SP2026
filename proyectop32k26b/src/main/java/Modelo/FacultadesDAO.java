@@ -1,28 +1,33 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Modelo;
 
-import Controlador.clsPerfil;
-import Controlador.clsBitacora;
 import Controlador.clsFacultades;
+import Controlador.clsBitacora;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-public class PerfilDAO {
-
+/**
+ *
+ * @author WINDOWS
+ */
+public class FacultadesDAO {
     private static final String SQL_SELECT =
-            "SELECT percodigo, pernombre, perestado FROM perfiles";
+            "SELECT faculcodigo, faculnombre, faculstatus FROM facultades";
 
     private static final String SQL_INSERT =
-            "INSERT INTO perfiles (pernombre, perestado) VALUES(?, ?)";
+            "INSERT INTO facultades (faculnombre, faculstatus) VALUES(?, ?)";
 
     private static final String SQL_UPDATE =
-            "UPDATE perfiles SET pernombre=?, perestado=? WHERE percodigo=?";
+            "UPDATE facultades SET faculnombre=?, faculstatus=? WHERE faculcodigo=?";
 
     private static final String SQL_DELETE =
-            "DELETE FROM perfiles WHERE percodigo=?";
+            "DELETE FROM facultades WHERE faculcodigo=?";
 
     private static final String SQL_SELECT_ID =
-            "SELECT percodigo, pernombre, perestado FROM perfiles WHERE percodigo=?";
+            "SELECT faculcodigo, faculnombre, faculstatus FROM facultades WHERE faculcodigo=?";
 
 
     private static final String SQL_INSERT_BITACORA =
@@ -39,11 +44,11 @@ public class PerfilDAO {
 
 
     
-    public List<clsPerfil> obtenerPerfiles(clsBitacora bitacora) {
+    public List<clsFacultades> obtenerFacultades(clsBitacora bitacora) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<clsPerfil> lista = new ArrayList<>();
+        List<clsFacultades> lista = new ArrayList<>();
 
         try {
             conn = Conexion.getConnection();
@@ -51,14 +56,14 @@ public class PerfilDAO {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-                clsPerfil p = new clsPerfil();
-                p.setPercodigo(rs.getInt("percodigo"));
-                p.setPernombre(rs.getString("pernombre"));
-                p.setPerestado(rs.getString("perestado"));
+                clsFacultades p = new clsFacultades();
+                p.setFaculcodigo(rs.getInt("faculcodigo"));
+                p.setFaculnombre(rs.getString("faculnombre"));
+                p.setFaculstatus(rs.getString("faculstatus"));
                 lista.add(p);
             }
 
-            //bitacora.setBitaccion("SELECT perfiles");
+            //bitacora.setBitaccion("SELECT facultades");
             //insertarBitacora(bitacora);
 
         } catch (SQLException e) {
@@ -72,7 +77,7 @@ public class PerfilDAO {
         return lista;
     }
 
-    public int insertarPerfil(clsPerfil perfil, clsBitacora bitacora) {
+    public int insertarFacultades(clsFacultades facultad, clsBitacora bitacora) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -81,12 +86,12 @@ public class PerfilDAO {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
 
-            stmt.setString(1, perfil.getPernombre());
-            stmt.setString(2, perfil.getPerestado());
+            stmt.setString(1, facultad.getFaculnombre());
+            stmt.setString(2, facultad.getFaculstatus());
 
             rows = stmt.executeUpdate();
 
-            bitacora.setBitaccion("INSERT perfil " + perfil.getPernombre());
+            bitacora.setBitaccion("INSERT facultad " + facultad.getFaculnombre());
             insertarBitacora(bitacora);
 
         } catch (SQLException e) {
@@ -99,7 +104,7 @@ public class PerfilDAO {
         return rows;
     }
 
-    public int actualizarPerfil(clsPerfil perfil, clsBitacora bitacora) {
+    public int actualizarFacultades(clsFacultades facultad, clsBitacora bitacora) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -108,13 +113,12 @@ public class PerfilDAO {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_UPDATE);
 
-            stmt.setString(1, perfil.getPernombre());
-            stmt.setString(2, perfil.getPerestado());
-            stmt.setInt(3, perfil.getPercodigo());
+            stmt.setString(1, facultad.getFaculnombre());
+            stmt.setString(2, facultad.getFaculstatus());
 
             rows = stmt.executeUpdate();
 
-            bitacora.setBitaccion("UPDATE perfil " + perfil.getPercodigo());
+            bitacora.setBitaccion("UPDATE facultad " + facultad.getFaculcodigo());
             insertarBitacora(bitacora);
 
         } catch (SQLException e) {
@@ -127,7 +131,7 @@ public class PerfilDAO {
         return rows;
     }
 
-    public int eliminarPerfil(clsPerfil perfil, clsBitacora bitacora) {
+    public int eliminarFacultades(clsFacultades facultad, clsBitacora bitacora) {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -136,11 +140,10 @@ public class PerfilDAO {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
 
-            stmt.setInt(1, perfil.getPercodigo());
 
             rows = stmt.executeUpdate();
 
-            bitacora.setBitaccion("DELETE perfil " + perfil.getPercodigo());
+            bitacora.setBitaccion("DELETE facultad " + facultad.getFaculcodigo());
             insertarBitacora(bitacora);
 
         } catch (SQLException e) {
@@ -153,11 +156,11 @@ public class PerfilDAO {
         return rows;
     }
 
-    public clsPerfil obtenerPerfilPorId(int id, clsBitacora bitacora) {
+    public clsFacultades obtenerFacultadesPorId(int id, clsBitacora bitacora) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        clsPerfil perfil = null;
+        clsFacultades facultad = null;
 
         try {
             conn = Conexion.getConnection();
@@ -166,13 +169,13 @@ public class PerfilDAO {
             rs = stmt.executeQuery();
 
             if (rs.next()) {
-                perfil = new clsPerfil();
-                perfil.setPercodigo(rs.getInt("percodigo"));
-                perfil.setPernombre(rs.getString("pernombre"));
-                perfil.setPerestado(rs.getString("perestado"));
+                facultad = new clsFacultades();
+                facultad.setFaculcodigo(rs.getInt("faculcodigo"));
+                facultad.setFaculnombre(rs.getString("faculnombre"));
+                facultad.setFaculstatus(rs.getString("faculstatus"));
             }
 
-            //bitacora.setBitaccion("SELECT perfil ID " + id);
+            //bitacora.setBitaccion("SELECT facultad ID " + id);
             //insertarBitacora(bitacora);
 
         } catch (SQLException e) {
@@ -183,7 +186,7 @@ public class PerfilDAO {
             Conexion.close(conn);
         }
 
-        return perfil;
+        return facultad;
     }
 
 
@@ -302,15 +305,6 @@ public class PerfilDAO {
         return rows;
     }
 
-    public void insertarPerfil(clsFacultades facultades, clsBitacora bitacora) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    
 
-    public void eliminarPerfil(clsFacultades facultades, clsBitacora bitacora) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    public void actualizarPerfil(clsFacultades facultades, clsBitacora bitacora) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
