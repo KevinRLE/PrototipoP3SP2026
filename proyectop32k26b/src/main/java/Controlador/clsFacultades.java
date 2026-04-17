@@ -27,8 +27,8 @@ public class clsFacultades {
         this.faculstatus = faculstatus;
     }
 
-    public clsFacultades(int faculcodigo, String faculnombre, String faculstatus) {
-        this.faculcCodigo = faculcodigo;
+    public clsFacultades(String faculcodigo, String faculnombre, String faculstatus) {
+        
         this.faculnombre = faculnombre;
         this.faculstatus = faculstatus;
     }
@@ -37,8 +37,9 @@ public class clsFacultades {
         return faculcodigo;
     }
 
-    public void setFaculcodigo(int faculcodigo) {
-        this.faculcCodigo = faculcodigo;
+    public String setFaculcodigo(String faculcodigo) {
+        this.faculcodigo = faculcodigo;
+        return null;
     }
 
     public String getFaculnombre() {

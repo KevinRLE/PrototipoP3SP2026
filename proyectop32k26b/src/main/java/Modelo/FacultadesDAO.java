@@ -15,19 +15,19 @@ import java.util.List;
  */
 public class FacultadesDAO {
     private static final String SQL_SELECT =
-            "SELECT faculcodigo, faculnombre, faculstatus FROM facultades";
+            "SELECT codigo_facultad, nombre_facultad, estatus_facultad FROM facultades";
 
     private static final String SQL_INSERT =
-            "INSERT INTO facultades (faculnombre, faculstatus) VALUES(?, ?)";
+            "INSERT INTO facultades (codigo_facultad, nombre_facultad, estatus_facultad) VALUES (?, ?, ?)";
 
     private static final String SQL_UPDATE =
-            "UPDATE facultades SET faculnombre=?, faculstatus=? WHERE faculcodigo=?";
+            "UPDATE facultades SET nombre_facultad=?, estatus_facultad=? WHERE codigo_facultad=?";
 
     private static final String SQL_DELETE =
-            "DELETE FROM facultades WHERE faculcodigo=?";
+            "DELETE FROM facultades WHERE codigo_facultad=?";
 
     private static final String SQL_SELECT_ID =
-            "SELECT faculcodigo, faculnombre, faculstatus FROM facultades WHERE faculcodigo=?";
+            "SELECT codigo_facultad, nombre_facultad, estatus_facultad FROM facultades WHERE codigo_facultad=?";
 
 
     private static final String SQL_INSERT_BITACORA =
@@ -57,9 +57,9 @@ public class FacultadesDAO {
 
             while (rs.next()) {
                 clsFacultades p = new clsFacultades();
-                p.setFaculcodigo(rs.getInt("faculcodigo"));
-                p.setFaculnombre(rs.getString("faculnombre"));
-                p.setFaculstatus(rs.getString("faculstatus"));
+                p.setFaculcodigo(rs.getString("codigo_facultad"));
+                p.setFaculnombre(rs.getString("nombre_facultad"));
+                p.setFaculstatus(rs.getString("estatus_facultad"));
                 lista.add(p);
             }
 
@@ -86,9 +86,11 @@ public class FacultadesDAO {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
 
-            stmt.setString(1, facultad.getFaculnombre());
-            stmt.setString(2, facultad.getFaculstatus());
+            stmt.setString(1, facultad.getFaculcodigo()); // 👈 FALTABA ESTE
+            stmt.setString(2, facultad.getFaculnombre());
+            stmt.setString(3, facultad.getFaculstatus());
 
+            
             rows = stmt.executeUpdate();
 
             bitacora.setBitaccion("INSERT facultad " + facultad.getFaculnombre());
@@ -115,6 +117,7 @@ public class FacultadesDAO {
 
             stmt.setString(1, facultad.getFaculnombre());
             stmt.setString(2, facultad.getFaculstatus());
+            stmt.setString(3, facultad.getFaculcodigo());
 
             rows = stmt.executeUpdate();
 
@@ -139,6 +142,8 @@ public class FacultadesDAO {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_DELETE);
+            stmt.setString(1, facultad.getFaculcodigo());
+            rows = stmt.executeUpdate();
 
 
             rows = stmt.executeUpdate();
@@ -170,9 +175,9 @@ public class FacultadesDAO {
 
             if (rs.next()) {
                 facultad = new clsFacultades();
-                facultad.setFaculcodigo(rs.getInt("faculcodigo"));
-                facultad.setFaculnombre(rs.getString("faculnombre"));
-                facultad.setFaculstatus(rs.getString("faculstatus"));
+                facultad.setFaculcodigo(String.valueOf("codigo_facultad"));
+                facultad.setFaculnombre(rs.getString("nombre_facultad"));
+                facultad.setFaculstatus(rs.getString("estatus_facultad"));
             }
 
             //bitacora.setBitaccion("SELECT facultad ID " + id);

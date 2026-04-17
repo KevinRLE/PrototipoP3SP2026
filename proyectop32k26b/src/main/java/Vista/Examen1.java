@@ -344,7 +344,7 @@ bitacora.setUsucodigo(usuario);
     }
 
     clsFacultades facultades = new clsFacultades();
-    facultades.setFaculcodigo(Integer.parseInt(txtCodigo.getText()));
+    facultades.setFaculcodigo(txtCodigo.getText());
 
     FacultadesDAO dao = new FacultadesDAO();
     clsBitacora bitacora = crearBitacora("Eliminar facultades");
@@ -411,7 +411,7 @@ dao.eliminarFacultades(facultades, bitacora);
 
 
     clsFacultades facultades = new clsFacultades();
-    facultades.setFaculcodigo(Integer.parseInt(txtCodigo.getText()));
+    facultades.setFaculcodigo(txtCodigo.getText());
     facultades.setFaculnombre(txtNombre.getText());
     facultades.setFaculstatus(txtEstado.getText());
 
