@@ -61,6 +61,7 @@ public class MdiSeguridad extends javax.swing.JFrame {
         mantenimientoUsuarios = new javax.swing.JMenuItem();
         frmMantenimientoPerfiles = new javax.swing.JMenuItem();
         frmMantenimientoAplicaciones = new javax.swing.JMenuItem();
+        Examen = new javax.swing.JMenuItem();
         mnuProcesos = new javax.swing.JMenu();
         frmProcesoPerfilUsuario = new javax.swing.JMenuItem();
         frmProcesoAplicacionPerfil = new javax.swing.JMenuItem();
@@ -153,6 +154,14 @@ public class MdiSeguridad extends javax.swing.JFrame {
             }
         });
         mnuCatalogosMantenimientos.add(frmMantenimientoAplicaciones);
+
+        Examen.setText("Examen");
+        Examen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExamenActionPerformed(evt);
+            }
+        });
+        mnuCatalogosMantenimientos.add(Examen);
 
         mnuCatalogos.add(mnuCatalogosMantenimientos);
 
@@ -361,6 +370,17 @@ public class MdiSeguridad extends javax.swing.JFrame {
         ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
     }//GEN-LAST:event_frmProcesoAplicacionUsuarioActionPerformed
 
+    private void ExamenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExamenActionPerformed
+        // TODO add your handling code here:
+        System.out.println("entre a proceso Examen");
+        Examen1 ventana = new Examen1();
+        jDesktopPane1.add(ventana);
+        Dimension desktopSize = jDesktopPane1.getSize();
+        Dimension FrameSize = ventana.getSize();
+        ventana.setLocation((desktopSize.width - FrameSize.width) / 2, (desktopSize.height - FrameSize.height) / 2);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_ExamenActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -404,6 +424,7 @@ public class MdiSeguridad extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Examen;
     private javax.swing.JMenuItem frmMantenimientoAplicaciones;
     private javax.swing.JMenuItem frmMantenimientoBitacora;
     private javax.swing.JMenuItem frmMantenimientoPerfiles;
